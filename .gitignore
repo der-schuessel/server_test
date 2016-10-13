@@ -2,3 +2,4 @@ bin/
 out/
 .idea/
 server_test.iml
+.gitignore
