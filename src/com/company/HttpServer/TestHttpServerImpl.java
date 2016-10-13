@@ -79,7 +79,7 @@ public class TestHttpServerImpl implements TestHttpServer {
         RequestedFile requestedFile = new RequestedFile(file);
         Headers requestHeaders = httpExchange.getRequestHeaders();
 
-        // Check whether client uses If_None_Match
+        // Check whether client uses If-None-Match
         if (requestHeaders.containsKey(IF_NONE_MATCH)) {
             String etag = requestHeaders.getFirst(IF_NONE_MATCH);
             String actualEtag = requestedFile.getETag();
@@ -109,6 +109,8 @@ public class TestHttpServerImpl implements TestHttpServer {
                 httpExchange.sendResponseHeaders(NOT_MODIFIED, file.length());
                 System.out.println("File not modified since given date: " + NOT_MODIFIED);
             }
+
+            // Check whether client uses If-Match
         } else if (requestHeaders.containsKey(IF_MATCH)) {
             List<String> etags = requestHeaders.get(IF_MATCH);
             String actualEtag = requestedFile.getETag();
